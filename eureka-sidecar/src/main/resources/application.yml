@@ -1,0 +1,17 @@
+server:
+  port: 5678
+
+spring:
+  application:
+    name: ${SERVICE_NAME}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+
+sidecar:
+  port: 80
+  health-uri: http://${SERVICE_NAME}:80/health
+  home-page-uri: http://${SERVICE_NAME}:80/
+  hostname: ${SERVICE_NAME}

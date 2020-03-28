@@ -1,0 +1,30 @@
+version: "3"
+services:
+  eureka-server:
+    image: "eureka-server"
+    ports:
+      - "8761:8761"
+  alice:
+    image: "service-alice"
+    ports:
+      - "8001:80"
+    depends_on:
+      - "eureka-server"
+  sidecar-alice:
+    image: "eureka-sidecar"
+    environment:
+      - SERVICE_NAME=alice
+    depends_on:
+      - "alice"
+  bob:
+    image: "service-bob"
+    ports:
+      - "8002:80"
+    depends_on:
+      - "eureka-server"
+  sidecar-bob:
+    image: "eureka-sidecar"
+    environment:
+      - SERVICE_NAME=bob
+    depends_on:
+      - "bob"
